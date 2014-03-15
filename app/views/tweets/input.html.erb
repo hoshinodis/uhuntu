@@ -1,0 +1,29 @@
+<div class="container">
+  <div >
+    <% if signed_in? %>
+    <div class="clearfix">
+      Welcome <%= session[:username] %>!
+      <%= link_to "Sign Out", "/signout" %>
+      <label for="textarea">Enter a message:</label>
+      <div class="form-action">
+        <%= form_tag({:action => "update"}, {:method => "post"}) do %>
+          <%= text_area_tag(:message) %><br>
+          <%= submit_tag("tweet" , :class => "btn btn-primary") %>
+        <% end %>
+      </div>
+    </div>
+      <div id="timeline">
+        <div id="tamesi">
+        <%#= @timeline %>
+        </div>
+        <% @timeline.each do |tl| %>
+          <br />
+          <b><%= tl['user']['name'] %></b>&nbsp
+          <%= tl['user']['screen_name'] %><br />
+          <%= tl['text'] %><br />
+        <% end %>
+    <% else %>
+      <%= link_to "Sign in with Twitter", "/auth/twitter"%>
+    <% end %>
+  </div><!--/.nav-collapse -->
+</div>
